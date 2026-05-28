@@ -5452,12 +5452,17 @@ const EMBEDDED_DATA = {"annee": "2025-2026", "eleves": [{"id": "mn61mn3ihi8t", "
 
 function loadStorage(){
   try{
-    if(EMBEDDED_DATA && (EMBEDDED_DATA.eleves||[]).length > 0){
-      Object.assign(App, JSON.parse(JSON.stringify(EMBEDDED_DATA)));
+    // Priorité 1 : localStorage (données saisies par l'utilisateur)
+    const r = localStorage.getItem(KEY);
+    if(r){
+      const p = JSON.parse(r);
+      Object.assign(App, p);
       return;
     }
-    const r = localStorage.getItem(KEY);
-    if(r){ const p = JSON.parse(r); Object.assign(App, p); }
+    // Priorité 2 : EMBEDDED_DATA (données initiales intégrées dans le fichier)
+    if(EMBEDDED_DATA && (EMBEDDED_DATA.eleves||[]).length > 0){
+      Object.assign(App, JSON.parse(JSON.stringify(EMBEDDED_DATA)));
+    }
   }catch(e){ console.warn("loadStorage:", e); }
 }
 
