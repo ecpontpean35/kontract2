@@ -8595,7 +8595,7 @@ function passGetOrInit(semId, eleveId){
   if(!p.data[semId]) p.data[semId]={};
   if(!p.data[semId][eleveId]) p.data[semId][eleveId]={
     booms:  new Array(p.regles.length).fill(0),
-    etoiles:new Array(p.regles.length).fill(0)
+    etoiles:new Array(p.regles.length).fill(1)  // 1 sweet par règle par défaut
   };
   const d = p.data[semId][eleveId];
   while(d.booms.length   < p.regles.length) d.booms.push(0);
